@@ -47,9 +47,11 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\ActionsScript.cs" />
+     <Compile Include="Assets\Scripts\MagasinStats.cs" />
+     <Compile Include="Assets\Scripts\MenuElement.cs" />
      <Compile Include="Assets\Scripts\MoveScript.cs" />
+     <Compile Include="Assets\Scripts\Stats.cs" />
      <Compile Include="Assets\Scripts\XInput.cs" />
-     <Compile Include="Assets\Scripts\lookScript.cs" />
      <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
  <Reference Include="XInputDotNetPure">
  <HintPath>Assets\Plugins\XInputDotNetPure.dll</HintPath>

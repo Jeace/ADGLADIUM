@@ -7,7 +7,7 @@ public class MoveScript : MonoBehaviour {
 	
 	public float speed = 6.0F;
 	public float jumpSpeed = 8.0F;
-	public float rollingHeight = 3.0F;
+	public float rollingHeight = 8.0F;
 	public float rollingSpeed = 8.0F;
 	public float gravity = 20.0F;
 	public float rotateSpeed = 3.0F;

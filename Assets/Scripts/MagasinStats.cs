@@ -9,6 +9,8 @@ public class MagasinStats : MonoBehaviour {
 	public int selected = 0;
 	public XInput inputer;
 	private bool inputed = false;
+	public Color colorSelected = new Color(1.0f, 1.0f, 1.0f);
+	public Color colorUnselected = new Color(0.8f, 0.8f, 0.8f);
 
 
 	// Use this for initialization
@@ -23,17 +25,18 @@ public class MagasinStats : MonoBehaviour {
 		while(list_menu [selected].GetComponent<MenuElement> ().selectionnable == false) {
 			selected++;
 		}
-		list_menu[selected].GetComponent<TextMesh> ().color = new Color(0.5f, 0.5f, 0.5f);
 		checkInput ();
 		changeText ();
+		list_menu[selected].GetComponent<TextMesh> ().color = colorSelected;
 	}
 
 	void changeText(){
 		for (int p = 0; p<list_menu.Length; p++) {
 			GameObject toUpdate = list_menu[p];
+			toUpdate.GetComponent<TextMesh> ().color = colorUnselected;
 			switch(toUpdate.name){
 			case "argentAchatStats":
-				toUpdate.GetComponent<TextMesh>().text = "Argent disponible : "+player.argent+" ("+bonus_argent+")";
+				toUpdate.GetComponent<TextMesh>().text = "Argent disponible : "+(player.argent + bonus_argent)+" ("+bonus_argent+")";
 				break;
 			case "niveauAchatStats":
 				toUpdate.GetComponent<TextMesh>().text = "Niveau : "+player.niveau+" (+"+bonus_niveau+")";
@@ -103,9 +106,14 @@ public class MagasinStats : MonoBehaviour {
 					higherStat(ref bonus_vitalite);
 					break;
 				}
+			} else if(inputer.A){
+				inputed = true;
+				if(list_menu [selected].name == "validateAchatStats"){
+					validateStats();
+				}
 			}
 		}else{
-			if (inputer.UPPAD == false && inputer.DOWNPAD == false && inputer.LEFTPAD == false && inputer.RIGHTPAD == false){
+			if (inputer.UPPAD == false && inputer.DOWNPAD == false && inputer.LEFTPAD == false && inputer.RIGHTPAD == false && inputer.A == false){
 				inputed = false;
 			}
 		}
@@ -117,7 +125,6 @@ public class MagasinStats : MonoBehaviour {
 
 	void DownGradeSelected(){
 		if (selected >= 0) {
-			list_menu[selected].GetComponent<TextMesh> ().color = new Color(1.0f, 1.0f, 1.0f);
 			selected --;
 			if(selected < 0){
 				selected = list_menu.Length-1;
@@ -128,7 +135,6 @@ public class MagasinStats : MonoBehaviour {
 					selected = list_menu.Length-1;
 				}
 			}
-			list_menu[selected].GetComponent<TextMesh> ().color = new Color(0.5f, 0.5f, 0.5f);
 		}else{
 			if(selected < 0){
 				selected = list_menu.Length-1;
@@ -138,7 +144,6 @@ public class MagasinStats : MonoBehaviour {
 	
 	void UpGradeSelected(){
 		if (selected < list_menu.Length) {
-			list_menu[selected].GetComponent<TextMesh> ().color = new Color(1.0f, 1.0f, 1.0f);
 			selected ++;
 			if(selected >= list_menu.Length){
 				selected = 0;
@@ -149,7 +154,6 @@ public class MagasinStats : MonoBehaviour {
 					selected = 0;
 				}
 			}
-			list_menu[selected].GetComponent<TextMesh> ().color = new Color(0.5f, 0.5f, 0.5f);
 		}else{
 			if(selected >= list_menu.Length){
 				selected = 0;
@@ -198,5 +202,6 @@ public class MagasinStats : MonoBehaviour {
 		player.niveau += bonus_niveau;
 		player.argent += bonus_argent;
 		player.RecalculateStats ();
+		Initialize_shop ();
 	}
 }

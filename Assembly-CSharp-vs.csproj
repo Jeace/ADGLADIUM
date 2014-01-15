@@ -47,6 +47,12 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Ennemies\DetectScript.cs" />
+     <Compile Include="Assets\Scripts\GameManagement.cs" />
+     <Compile Include="Assets\Scripts\Ludus\Controle_MC.cs" />
+     <Compile Include="Assets\Scripts\Ludus\Menu_Competence.cs" />
+     <Compile Include="Assets\Scripts\Ludus\Menu_Entraineur.cs" />
+     <Compile Include="Assets\Scripts\Ludus\Menu_Forge.cs" />
+     <Compile Include="Assets\Scripts\Ludus\Menu_Personnage.cs" />
      <Compile Include="Assets\Scripts\Menus\MagasinStats.cs" />
      <Compile Include="Assets\Scripts\Menus\MenuElement.cs" />
      <Compile Include="Assets\Scripts\Player\ActionsScript.cs" />

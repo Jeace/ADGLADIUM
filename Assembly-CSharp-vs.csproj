@@ -46,16 +46,24 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\ActionsScript.cs" />
-     <Compile Include="Assets\Scripts\MagasinStats.cs" />
-     <Compile Include="Assets\Scripts\MenuElement.cs" />
-     <Compile Include="Assets\Scripts\MoveScript.cs" />
-     <Compile Include="Assets\Scripts\Stats.cs" />
+     <Compile Include="Assets\Scripts\Ennemies\DetectScript.cs" />
+     <Compile Include="Assets\Scripts\Menus\MagasinStats.cs" />
+     <Compile Include="Assets\Scripts\Menus\MenuElement.cs" />
+     <Compile Include="Assets\Scripts\Player\ActionsScript.cs" />
+     <Compile Include="Assets\Scripts\Player\MoveScript.cs" />
+     <Compile Include="Assets\Scripts\Player\Stats.cs" />
      <Compile Include="Assets\Scripts\XInput.cs" />
      <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
+ <Reference Include="Assembly-UnityScript-firstpass">
+ <HintPath>Library\ScriptAssemblies\Assembly-UnityScript-firstpass.dll</HintPath>
+ </Reference>
  <Reference Include="XInputDotNetPure">
  <HintPath>Assets\Plugins\XInputDotNetPure.dll</HintPath>
  </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass-vs.csproj">
+      <Project>{36320415-F518-2D41-F751-945489C3ED0D}</Project>      <Name>Assembly-CSharp-firstpass-vs</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

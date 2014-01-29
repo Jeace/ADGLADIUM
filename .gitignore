@@ -17,3 +17,5 @@ Temp
 *.pidb
 *.sln 
 Library
+/Assets/scene.unity
+/Assets/scene.unity.meta

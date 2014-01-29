@@ -4,19 +4,21 @@ using System.Collections;
 
 [RequireComponent(typeof(SphereCollider))]
 public class DetectScript : MonoBehaviour {
-	private GameObject cible;
+	public GameObject cible;
 	private GameObject joueur;
 	private int rand=51;
 	private CharacterController controller;
 	private Vector3 vectEnnemie = Vector3.zero;
 	private float speed = 6.0F;
 	private float gravity = 20.0F;
-	private bool isAttak = false;
+	public bool isAttak = false;
 	private int iteration=0;
-	private SphereCollider tailleCol;
+	public SphereCollider tailleCol;
 	private bool isAlea=true;
+	public GameManagement gameManager;
 
 	void Start(){
+		gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManagement>();
 		joueur=GameObject.FindGameObjectWithTag("Player");
 		rand = (int)(Mathf.Round(Random.value*40)+10);
 		controller = GetComponent<CharacterController>();
@@ -29,60 +31,53 @@ public class DetectScript : MonoBehaviour {
 	}
 	
 	void Update() {
-		if(cible!=null){
-			rand=51;
-			vectEnnemie = change ();
-			if(!isAlea){
-				vectEnnemie = transform.TransformDirection(vectEnnemie);
-				vectEnnemie *= speed;
-				vectEnnemie.y -= gravity * Time.deltaTime;
-				//controller.Move(vectEnnemie * Time.deltaTime);
+		if (gameManager.actualPhase == GameManagement.Phases.arena) {
+			if(cible!=null){
+				rand=51;
+				vectEnnemie = change ();
+				if(!isAlea){
+					vectEnnemie = transform.TransformDirection(vectEnnemie);
+					vectEnnemie *= speed;
+					vectEnnemie.y -= gravity * Time.deltaTime;
+					//controller.Move(vectEnnemie * Time.deltaTime);
+				}
+				isAlea=false;
 			}
-			isAlea=false;
-		}
-		else{
-			Alea ();
-		}
-		if(rand>15){
-			vectEnnemie.y -= gravity * Time.deltaTime;
-			controller.Move(vectEnnemie * Time.deltaTime);
-		}
-		if(rand!=51){
-			if(Mathf.Round(Random.value*50)>45)
-				tailleCol.radius = tailleCol.radius+Mathf.Round(Random.value);
-			float d;
-			float x = joueur.transform.position.x - transform.position.x;
-			float z = joueur.transform.position.z - transform.position.z;
-			if(x<0.0F)
-				d=-x;
-			else
-				d=x;
-			if(z<0.0F)
-				d=d-z;
-			else
-				d=d+z;
-			if(tailleCol.radius>d){
-				cible = joueur;
+			else{
+				Alea ();
+			}
+			if(rand>15){
+				vectEnnemie.y -= gravity * Time.deltaTime;
+				controller.Move(vectEnnemie * Time.deltaTime);
+			}
+			if(rand!=51){
+				if(Mathf.Round(Random.value*50)>45)
+					tailleCol.radius = tailleCol.radius+Mathf.Round(Random.value);
+				float d;
+				float x = joueur.transform.position.x - transform.position.x;
+				float z = joueur.transform.position.z - transform.position.z;
+				if(x<0.0F)
+					d=-x;
+				else
+					d=x;
+				if(z<0.0F)
+					d=d-z;
+				else
+					d=d+z;
+				if(tailleCol.radius>d){
+					cible = joueur;
+				}
 			}
 		}
 	}
 
 	void OnTriggerEnter(Collider collision){
-		if(collision.gameObject.Equals(GameObject.FindGameObjectWithTag("Player")))
+		if(collision.gameObject.Equals(GameObject.FindGameObjectWithTag("Player"))){
 			cible = collision.gameObject;
-	}
-/*
-	void OnTriggerStay(Collider collision){
-		if(collision.gameObject.Equals(cible)){
-			cible = collision.gameObject;
-			vectEnnemie = change ();
-			vectEnnemie = transform.TransformDirection(vectEnnemie);
-			vectEnnemie *= speed;
-			vectEnnemie.y -= gravity * Time.deltaTime;
-			controller.Move(vectEnnemie * Time.deltaTime);
+			tailleCol.radius = GetComponent<ActionsEnnemie>().allonge;
 		}
 	}
-*/
+
 	Vector3 change(){
 		int i=0,a=0;
 		float d;
@@ -106,10 +101,11 @@ public class DetectScript : MonoBehaviour {
 			}
 			if(a<2)
 				isAttak = true;
-			else{
-				Alea ();
-				isAlea = true;
-				return changeA();
+			else if(d<14.0F){
+				if(a%2==1)
+					return new Vector3((z/d-x/d)/2,0.0F,(-x/d-z/d)/2);
+				else
+					return new Vector3((-z/d-x/d)/2,0.0F,(x/d-z/d)/2);
 			}
 		}
 		if(!(d<1.0F && d>-1.0F) && ((d<15.0F && isAttak)||d>=15.0F))
@@ -151,5 +147,22 @@ public class DetectScript : MonoBehaviour {
 	
 	bool isAttaking(){
 		return isAttak;
+	}
+
+	public float distanceCible(){
+		if(cible.Equals (null))
+			return 15.0F;
+		float d;
+		float x = cible.transform.position.x - transform.position.x;
+		float z = cible.transform.position.z - transform.position.z;
+		if(x<0.0F)
+			d=-x;
+		else
+			d=x;
+		if(z<0.0F)
+			d-=z;
+		else
+			d+=z;
+		return Mathf.Pow(d,0.5F);
 	}
 }

@@ -9,6 +9,7 @@ public class Stats : MonoBehaviour {
 	public float LongueurBarreEndurance, LongueurBarreSante, LongueurBarreEnduranceMAX, LongueurBarreSanteMAX;
 	private static Texture2D _staticRectTexture;
 	private static GUIStyle _staticRectStyle;
+	public float regenerationEndurance = 5.0f; 
 
 	// Use this for initialization
 	void Start () {
@@ -20,15 +21,15 @@ public class Stats : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (gameManager.actualPhase == GameManagement.Phases.arena) {
-			AjusterSanteActuelle (0);
-			AjusterEnduranceActuelle (1);
+			AjusterSanteActuelle (0.0f);
+			AjusterEnduranceActuelle (regenerationEndurance);
 		}
 	}
 
 	void OnGUI () { 
 		if (gameManager.actualPhase == GameManagement.Phases.arena) {
 				LongueurBarreEnduranceMAX = Screen.width / 5 + (1 / ((Screen.width / 2) - energieMAX));
-				LongueurBarreSanteMAX = Screen.width / 5 + (1 / ((Screen.width / 2) - energieMAX));
+				LongueurBarreSanteMAX = Screen.width / 5 + (1 / ((Screen.width / 2) - PVMAX));
 				GUIDrawRect (new Rect (20, 20, LongueurBarreSanteMAX, 30), Color.black); 
 				GUIDrawRect (new Rect (20, 60, LongueurBarreEnduranceMAX, 30), Color.black); 
 				GUIDrawRect (new Rect (20, 20, LongueurBarreSante, 30), new Color (0.5f, 0.0f, 0.0f, 1.0f)); 
@@ -56,7 +57,11 @@ public class Stats : MonoBehaviour {
 		//recalcule les stats secondaires
 	}
 
-	public void AjusterSanteActuelle(int adj) { 
+	public void Hurted(float damages){
+		AjusterSanteActuelle (damages);
+	}
+
+	public void AjusterSanteActuelle(float adj) { 
 		PV += adj; 
 		
 		if (PV < 0) 
@@ -71,9 +76,9 @@ public class Stats : MonoBehaviour {
 		LongueurBarreSante = LongueurBarreSanteMAX * (PV / (float)PVMAX); 
 	}
 
-	public void AjusterEnduranceActuelle (int adj){
+	public void AjusterEnduranceActuelle (float adj){
 		energie += adj; 
-		
+
 		if (energie < 0) 
 			energie = 0; 
 		

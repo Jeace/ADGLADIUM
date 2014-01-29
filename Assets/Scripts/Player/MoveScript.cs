@@ -12,7 +12,10 @@ public class MoveScript : MonoBehaviour {
 	public float rollingSpeed = 8.0F;
 	public float gravity = 20.0F;
 	public float rotateSpeed = 3.0F;
+	public float rollingCost = 500.0f;
+	public float jumpingCost = 600.0f;
 	public XInput inputer;
+	public Stats statsManager;
 	private Vector3 moveDirection = Vector3.zero;
 	private Camera mainCamera;
 
@@ -21,6 +24,7 @@ public class MoveScript : MonoBehaviour {
 		mainCamera = Camera.main;
 		inputer = GameObject.FindWithTag ("INPUTER").GetComponent<XInput>();
 		gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManagement>();
+		statsManager = gameObject.GetComponent<Stats> ();
 	}
 	
 	// Update is called once per frame
@@ -34,11 +38,17 @@ public class MoveScript : MonoBehaviour {
 					moveDirection = transform.TransformDirection (moveDirection);
 					moveDirection *= speed;
 					if (inputer.A) {
+						if(statsManager.energie-jumpingCost >= 0){
+							statsManager.AjusterEnduranceActuelle(-jumpingCost);
 							moveDirection.y = jumpSpeed;
+						}
 					} else if (inputer.B) {
+						if(statsManager.energie-rollingCost >= 0){
+							statsManager.AjusterEnduranceActuelle(-rollingCost);
 							moveDirection /= speed;
 							moveDirection *= rollingSpeed;
 							moveDirection.y = rollingHeight;
+						}
 					}
 			}
 			moveDirection.y -= gravity * Time.deltaTime;

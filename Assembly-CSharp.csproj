@@ -46,7 +46,10 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Armes\Stat_A.cs" />
+     <Compile Include="Assets\Scripts\Ennemies\ActionsEnnemie.cs" />
      <Compile Include="Assets\Scripts\Ennemies\DetectScript.cs" />
+     <Compile Include="Assets\Scripts\Ennemies\Stat_Ennemie.cs" />
      <Compile Include="Assets\Scripts\GameManagement.cs" />
      <Compile Include="Assets\Scripts\Ludus\Controle_MC.cs" />
      <Compile Include="Assets\Scripts\Ludus\Menu_Competence.cs" />

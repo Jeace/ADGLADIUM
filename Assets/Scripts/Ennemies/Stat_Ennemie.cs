@@ -19,6 +19,7 @@ public class Stat_Ennemie : MonoBehaviour {
 		PVMAX = 1000;
 		PV = 1000;
 		gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManagement>();
+		AjusterSanteActuelle (0);
 	}
 	
 	// Update is called once per frame

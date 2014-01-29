@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 using System.Collections;
 
 [RequireComponent(typeof(SphereCollider))]
+[RequireComponent(typeof(CharacterController))]
 public class DetectScript : MonoBehaviour {
 	public GameObject cible;
 	private GameObject joueur;

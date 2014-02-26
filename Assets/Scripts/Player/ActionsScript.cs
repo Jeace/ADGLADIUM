@@ -7,7 +7,7 @@ public class ActionsScript : MonoBehaviour {
 	public GameManagement gameManager;
 	public bool enAttack;
 	public float temps;
-	
+
 	// Use this for initialization
 	void Start () {
 		enAttack = false;
@@ -20,7 +20,9 @@ public class ActionsScript : MonoBehaviour {
 		if (gameManager.actualPhase == GameManagement.Phases.arena) {
 			if(!enAttack){
 				if(inputer.X){
-					temps = GameObject.FindWithTag("Arme").GetComponent<Stat_A>().vitesse_atk;
+					temps = GameObject.FindWithTag("Player").GetComponent<Stats>().vitesse_droite;
+					temps += GameObject.FindWithTag("Player").GetComponent<Stats>().vitesse_gauche;
+					temps /= 2;
 					enAttack=true;
 				}
 			}
@@ -33,8 +35,11 @@ public class ActionsScript : MonoBehaviour {
 				GameObject.FindWithTag("Arme").GetComponent<Transform>().rotation = GameObject.FindWithTag("Arme").GetComponent<Stat_A>().rotation;
 			}
 			else {
-				temps =temps-Time.fixedDeltaTime*2*GameObject.FindWithTag("Arme").GetComponent<Stat_A>().vitesse_atk;
-				GameObject.FindWithTag("Arme").GetComponent<Stat_A>().attackMovement((temps > GameObject.FindWithTag("Arme").GetComponent<Stat_A>().vitesse_atk/2.0F));
+				temps =temps-Time.fixedDeltaTime*2*(GameObject.FindWithTag("Player").GetComponent<Stats>().vitesse_droite
+				+GameObject.FindWithTag("Player").GetComponent<Stats>().vitesse_gauche)/2.0F;
+				GameObject.FindWithTag("Arme").GetComponent<Stat_A>().attackMovement((temps >
+				(GameObject.FindWithTag("Player").GetComponent<Stats>().vitesse_droite
+				+GameObject.FindWithTag("Player").GetComponent<Stats>().vitesse_gauche)/2.0F/2.0F));
 			}
 		}
 	}

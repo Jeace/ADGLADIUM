@@ -47,6 +47,12 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\BotControlScript.cs" />
+     <Compile Include="Assets\Liste_equipement.cs" />
+     <Compile Include="Assets\MainMenu\Scripts\CameraScript.cs" />
+     <Compile Include="Assets\MainMenu\Scripts\MainMenu.cs" />
+     <Compile Include="Assets\MainMenu\Scripts\MenuObject.cs" />
+     <Compile Include="Assets\MainMenu\Scripts\Option_menu.cs" />
+     <Compile Include="Assets\MainMenu\Scripts\Resolution_menu.cs" />
      <Compile Include="Assets\Scripts\Armes\Stat_A.cs" />
      <Compile Include="Assets\Scripts\Ennemies\ActionsEnnemie.cs" />
      <Compile Include="Assets\Scripts\Ennemies\DetectScript.cs" />

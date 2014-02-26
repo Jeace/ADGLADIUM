@@ -40,7 +40,7 @@ public class Menu_Forge : MonoBehaviour {
 	
 	void Fin()
 	{
-		transform.Translate (0f, 0f, 8f);
+		transform.Translate (0f, 0f, -8f);
 		Controle_MC inp = Ctr.GetComponent<Controle_MC> ();
 		inp.control = true;
 		control = false;

@@ -242,7 +242,7 @@ public class XInput : MonoBehaviour
 			return true;		
 		}else {
 			KeyCode temp;
-			keys.TryGetValue("DOWNPAD", out temp);
+			keys.TryGetValue("RIGHTPAD", out temp);
 			if(Input.GetKey(temp)){
 				return true;
 			}else{

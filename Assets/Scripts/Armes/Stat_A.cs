@@ -30,10 +30,14 @@ public class Stat_A : MonoBehaviour {
 	}
 
 	public void attackMovement(bool retour){
-		if(!retour)
-			GetComponent<Transform>().RotateAround(GameObject.FindWithTag("Player").transform.position,Vector3.up,-75*Time.deltaTime*vitesse_atk*2);
-		else
-			GetComponent<Transform>().RotateAround(GameObject.FindWithTag("Player").transform.position,Vector3.up,+75*Time.deltaTime*vitesse_atk*2);
+		float va=GameObject.FindWithTag("Player").GetComponent<Stats>().vitesse_droite + GameObject.FindWithTag("Player").GetComponent<Stats>().vitesse_droite;
+		va = va/2;
+		if(!retour){
+			GetComponent<Transform>().RotateAround(GameObject.FindWithTag("Player").transform.position,Vector3.up,-75*Time.deltaTime*va*2);
+		}
+		else{
+			GetComponent<Transform>().RotateAround(GameObject.FindWithTag("Player").transform.position,Vector3.up,+75*Time.deltaTime*va*2);
+		}
 	}
 	
 	void OnTriggerEnter(Collider collision){

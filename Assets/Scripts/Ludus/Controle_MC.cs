@@ -53,7 +53,7 @@ public class Controle_MC : MonoBehaviour {
 	void Update ()
 	{
 		if (gameManager.actualPhase == GameManagement.Phases.ludus) {
-			GameObject[] cap = new GameObject[] {Competence,Forge,Entraineur,Personnage};
+			GameObject[] cap = new GameObject[] {Entraineur,Personnage,Competence,Forge,Entraineur};
 			RaycastHit hit;
 
 			if(inputer.LT == false && inputer.RT == false)
@@ -85,8 +85,6 @@ public class Controle_MC : MonoBehaviour {
 				{
 					if (caps_visee == "Caps - Personnage") 
 					{
-						m_Personnage.transform.Translate (0f, 0f, -8f);
-
 						Menu_Personnage m_p = m_Personnage.GetComponent<Menu_Personnage>();
 						m_p.Control();
 						
@@ -104,7 +102,7 @@ public class Controle_MC : MonoBehaviour {
 					}
 
 					if (caps_visee == "Caps - Forge") {
-						m_Forge.transform.Translate (0f, 0f, -8f);
+						m_Forge.transform.Translate (0f, 0f, 8f);
 						
 						Menu_Forge m_f = m_Forge.GetComponent<Menu_Forge>();
 						m_f.Control();
@@ -126,8 +124,8 @@ public class Controle_MC : MonoBehaviour {
 			Vector3 targetPoint = cap [index].transform.position;
 			Quaternion targetRotation = Quaternion.LookRotation (targetPoint - transform.position, Vector3.up);
 			Main_cam.transform.position = transform.position;
-			Main_cam.transform.rotation = Quaternion.Slerp (Main_cam.transform.rotation, targetRotation, Time.deltaTime * 1.0f);
-			
+			Main_cam.transform.rotation = Quaternion.Slerp (Main_cam.transform.rotation, targetRotation, Time.deltaTime * 3.0f);
+
 			// Camera Laser de la mort qui tue ...
 			Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width/2, Screen.height/2, 0));
 			if (Physics.Raycast (ray, out hit))

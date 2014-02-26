@@ -4,8 +4,8 @@ using System.Collections;
 public class Stats : MonoBehaviour {
 	
 	public GameManagement gameManager;
-	public int force, agilite, vitalite, constitution, endurance, niveau, argent;
-	public float PV, PVMAX, energie, energieMAX, poids_max, poids_actuel, degats_droite, degats_gauche, resistance_cont, resistance_tranch, balance, vitesse_depl, vitesse_atk, crit;
+	public int force, agilite, vitalite, constitution, endurance, niveau, argent,gloire;
+	public float vitesse_droite,vitesse_gauche,PV, PVMAX, energie, energieMAX, poids_max, poids_actuel, degats_droite, degats_gauche, resistance_cont, resistance_tranch, balance, vitesse_depl, vitesse_atk, crit;
 	public float LongueurBarreEndurance, LongueurBarreSante, LongueurBarreEnduranceMAX, LongueurBarreSanteMAX;
 	private static Texture2D _staticRectTexture;
 	private static GUIStyle _staticRectStyle;
@@ -13,6 +13,8 @@ public class Stats : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		vitesse_droite = 1.0F;
+		vitesse_gauche = 1.0F;
 		LongueurBarreEnduranceMAX = Screen.width/3;
 		LongueurBarreSanteMAX = Screen.width/3;
 		gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManagement>();
